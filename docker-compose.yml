@@ -1,0 +1,15 @@
+version: '3.8' #Merujuk ke versi Docker Compose
+services: #Service yang digunakan
+  item-app: #Service yang digunakan untuk aplikasi
+    image: ghcr.io/arifandiwahyu/item-app:v1 # use image from Github Container Registry
+    ports: # Konfigurasi port yang akan digunakan
+      - 80:8080 #Mengekspos port 8080 pada Container ke port 80 dari Host
+    restart: always #Jika aplikasi crash, akan dilakukan restart kembali
+    depends_on: #Memastikan untuk service item-db berjalan sebelum aplikasi berjalan
+      - item-db
+  item-db: # Service untuk database
+    image: mongo:3 # Menggunakan mongodb versi 3
+    volumes: # konfigurasi volume yang akan digunakan mongodb
+      - app-db:/data/db #letak penyimpanan database yang akan digunakan mongodb
+volumes: #Konfigurasi volume untuk app-db
+  app-db:
