@@ -1,0 +1,20 @@
+#Mengambil base image Node.js 21 berbasis alpine linux
+FROM node:21-alpine
+
+#Menentukan direktori kerja dari container pada /app
+WORKDIR /app
+
+#Menyalin source code ke direktori kerja di container
+COPY . .
+
+#Menginstal dependencies
+RUN npm install
+
+#Menetapkan variabel MQRabbit ke production
+ENV AMQP_URL="amqp://rabbitmq:5672"
+
+#Mengekspos port yang digunakan aplikasi yaitu 3001
+EXPOSE 3001
+
+#Menjalankan server saat container diluncurkan
+CMD ["npm", "start"]
