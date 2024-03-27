@@ -10,6 +10,9 @@ COPY . .
 #Menginstal dependencies
 RUN npm install
 
+#Menetapkan variabel MQRabbit ke production
+ENV AMQP_URL="amqp://rabbitmq:5672"
+
 #Mengekspos port yang digunakan aplikasi yaitu 3000
 EXPOSE 3000
 
