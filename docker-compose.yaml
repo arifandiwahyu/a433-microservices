@@ -1,7 +1,7 @@
 #Versi docker compose
 version: "3.8"
 
-#Layanan-layanan yang dijalankan
+#Layanan-layanan yang berjalan
 services:
   #Layanan order-service
   order-service:
@@ -36,25 +36,22 @@ services:
     image: rabbitmq:3.11-management  #Versi Image Docker rabbitmq yang digunakan
     container_name: 'rabbitmq_container'  #Nama dari kontainer
     ports:
-      - 5673:5672  # Pemetaan port host ke port kontainer (AMQP)
-      - 15673:15672  # Pemetaan port host ke port kontainer (Manajemen)
+      - 5673:5672  #Pemetaan port host ke port kontainer (AMQP)
+      - 15673:15672  #Pemetaan port host ke port kontainer (Manajemen)
     volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-      #- rabbitmq-data:/var/lib/rabbitmq/  # Mount volume untuk data RabbitMQ
-      #- rabbitmq-log:/var/log/rabbitmq/  # Mount volume untuk log RabbitMQ
-    
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/ #Mounting volume untuk data RabbitMQ
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq #Mounting volume untuk log RabbitMQ
     healthcheck:
-      test: "exit 0"  # Menguji jalannya RabbitMQ. Jika tidak ada masalah, akan mengembalikan exit code 0
+      test: "exit 0"  #Menguji jalannya RabbitMQ. Jika tidak ada masalah, akan mengembalikan exit code 0
     networks:
-      - rabbitmq_network  # Menggunakan jaringan rabbitmq_network
+      - rabbitmq_network  #Menggunakan jaringan rabbitmq_network
 
 #Definisi volume untuk data dan log RabbitMQ
 volumes:
   rabbitmq-data:
   rabbitmq-log:
 
-# Jaringan untuk komunikasi antar kontainer
+#Jaringan untuk komunikasi antar kontainer
 networks:
   rabbitmq_network:
-    driver: bridge  # Pengaturan driver jaringan
+    driver: bridge  #jaringan set bridge
